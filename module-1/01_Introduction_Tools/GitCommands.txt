@@ -1,0 +1,17 @@
+See current status of working files and repository
+	git status
+Pull Lecture/Solution Code
+	git pull upstream master
+Pull New Exercise Code
+	git pull upstream master
+Push Exercise Code
+  Add files to the 'to be committed list'
+	git add .  (adds everything below current directory)
+           OR
+        git add -A (-A adds everything in the repo)
+           OR
+        git add fileName (where fileName can be a file or directory to just add that one)
+  Commit locally
+	git commit -m "My commit message"
+  Push the commit to the server so that David can grade it (you can check bitbucket to ensure this step was completed)
+	git push origin master

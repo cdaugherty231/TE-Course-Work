@@ -1,0 +1,11 @@
+Command	Description
+pwd	Prints out the current working directory
+ls	List the contents of a particular directory
+cd <name>	Change directory
+cd <name>/<subfolder>	Changes directory to a specific folder / subfolder
+cd ..	Go up a directory
+cd ~	Go to the user's home directory
+cd /	Go to the root directory
+mkdir <name>	Creates a new directory
+rmdir <name>	Removes a directory
+rm <file-name>	Removes a file by name
