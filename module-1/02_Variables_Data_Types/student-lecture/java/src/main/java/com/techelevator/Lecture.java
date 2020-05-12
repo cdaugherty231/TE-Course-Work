@@ -110,6 +110,7 @@ public class Lecture {
 		22. What is 66.6 divided by 100? Is the answer you get right or wrong?
 		*/
 
+
 		/*
 		23. If I divide 5 by 2, what's my remainder?
 		*/
