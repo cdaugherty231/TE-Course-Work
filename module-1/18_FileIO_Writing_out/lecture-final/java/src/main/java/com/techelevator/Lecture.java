@@ -143,6 +143,10 @@ public class Lecture {
          }
 		
 		System.out.println("Finished successfully");
+		
+		//EXIT THE PROGRAM
+		System.exit(1); //abnormal
+		System.exit(0); //successful
 	}
 
 }
