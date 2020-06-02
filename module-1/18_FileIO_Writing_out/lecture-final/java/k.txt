@@ -1,0 +1,3 @@
+Write a line
+using print stays on same line just like the console!somethign else
+append to the end
