@@ -19,9 +19,14 @@ public class JDBCCityDAO implements CityDAO {
 	}
 	
 	@Override
-	public void save(City newCity) {
-		// TODO Auto-generated method stub
-		
+	public City create(City newCity) {
+		String sql = "INSERT INTO city (name, countrycode, district, population) " +
+				 "VALUES (?,?,?,?) RETURNING id";
+		SqlRowSet result = jdbcTemplate.queryForRowSet(sql,newCity.getName(), newCity.getCountryCode(),newCity.getState(),newCity.getPopulation());
+		if (result.next()) {
+			newCity.setId(result.getLong("id"));
+		}
+		return newCity;
 	}
 
 	@Override
