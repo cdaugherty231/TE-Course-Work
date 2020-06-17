@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.time.LocalDate;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -59,6 +61,22 @@ public class SpringJDBCExample {
 			System.out.format("%d rows deleted.", count);
 		} catch (Exception e) {
 			System.out.format("Unable to delete %s: %s ", first_name, e.getMessage());
+		}
+		
+		
+		//when is the last time someone actually rented a video?!?
+		String sqlLastRental = "SELECT rental_date " + 
+				"FROM rental " + 
+				"ORDER BY rental_date DESC " + 
+				"LIMIT 1; ";
+		SqlRowSet lastRentalResult = dvdstoreJdbcTemplate.queryForRowSet(sqlLastRental);
+		LocalDate lastRental = null;
+		if (lastRentalResult.next()) {
+			 lastRental = lastRentalResult.getDate("rental_date").toLocalDate();
+		}
+		
+		if (lastRental != null) {
+			System.out.println("\n \n \n \nThe last time a movie was rented is "+lastRental);
 		}
 	}
 }

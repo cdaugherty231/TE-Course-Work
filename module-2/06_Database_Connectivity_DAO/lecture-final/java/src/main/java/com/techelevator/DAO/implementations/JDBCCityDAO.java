@@ -1,4 +1,4 @@
-package com.techelevator.city;
+package com.techelevator.DAO.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import com.techelevator.city.City;
+import com.techelevator.city.CityDAO;
 
 //THIS IS THE ONLY CLASS WHERE SQL STATEMENTS TO ACCESS CITY TABLE SHOULD LIVE
 
@@ -38,6 +41,7 @@ public class JDBCCityDAO implements CityDAO {
 				  "WHERE id = ?";
 
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindCityById,id);
+		
 		if (results.next()) {
 			foundCity = mapRowToCity(results);
 		}
@@ -83,7 +87,13 @@ public class JDBCCityDAO implements CityDAO {
 
 	@Override
 	public void delete(long id) {
-		// TODO Auto-generated method stub
+		/* This would work but is vulnerable to SQL Injection
+		String sql = "DELETE FROM city WHERE id = " + id;
+		jdbcTemplate.update(sql);
+		*/
+		
+		String sql = "DELETE FROM city WHERE id = ?" ; 
+		jdbcTemplate.update(sql,id);
 		
 	}
 
