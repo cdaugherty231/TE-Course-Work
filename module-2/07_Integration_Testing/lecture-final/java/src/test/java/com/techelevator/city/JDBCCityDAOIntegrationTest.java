@@ -1,11 +1,14 @@
 package com.techelevator.city;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -72,17 +75,13 @@ public class JDBCCityDAOIntegrationTest {
 	@Test
 	public void create_a_new_city_and_read_it_back() {
 		//arrange
-		City theCity = createCity("BarterTown",5000,"Oz");
-		
+		City theCity = createCity("BarterTown",5000,"Oz");		
 		//act - dao
-		City createdCity = dao.create(theCity);
-		
+		City createdCity = dao.create(theCity);		
 		//YOU MUST READ FROM THE DATABASE AGAIN TO REALLY TEST
-		createdCity = dao.findCityById(createdCity.getId());
-		
+		createdCity = dao.findCityById(createdCity.getId());		
 		//assert
 		Assert.assertTrue(areCitiesEqual(theCity,createdCity));	
-
 	}
 	
 	//test return cities by country code
@@ -90,11 +89,9 @@ public class JDBCCityDAOIntegrationTest {
 	public void return_cities_by_country_code() {
 		//arrange - TEST_COUNTRY has one city		
 		City theCity = createCity("BarterTown",5000,"Oz");
-		dao.create(theCity);
-		
+		dao.create(theCity);		
 		//act - dao	
-		List<City> results = dao.findCityByCountryCode(TEST_COUNTRY);
-		
+		List<City> results = dao.findCityByCountryCode(TEST_COUNTRY);		
 		//assert
 		assertNotNull(results);
 		assertEquals(1,results.size());
@@ -105,8 +102,66 @@ public class JDBCCityDAOIntegrationTest {
 	//test return cities by country code if there are mutliple cities
 	@Test
 	public void return_multiple_cities_by_country_code() {
-		//add a second city to the country
-
+		//arrange
+		City c1 = createCity("BarterTown",5000,"Oz");
+		City c2 = createCity("We love integratino testing",24,"TechElevator");
+		dao.create(c1);
+		dao.create(c2);
+		List<City> expectedResults = new ArrayList<>();
+		expectedResults.add(c1);
+		expectedResults.add(c2);
+		
+		//act
+		List<City> actualResults = dao.findCityByCountryCode(TEST_COUNTRY);
+		
+		assertEquals(expectedResults.size(),actualResults.size());
+		
+		for(City c : expectedResults) {
+			boolean foundMatch = false;
+			for (City ca : actualResults) {
+				if (areCitiesEqual(c,ca))
+				{
+					foundMatch = true;
+					break;
+				}				
+			}
+		    assertTrue("Did not find city "+c.getName()+" in results.",foundMatch);
+		}
+		
+	}
+	
+	@Test
+	public void test_delete_city() {
+		//add it
+		City c = createCity("Gotham",1000000, "New York");
+		c = dao.create(c);
+		//make sure it's there
+		City cityFromDB = dao.findCityById(c.getId());
+		assertTrue(areCitiesEqual(c,cityFromDB));
+		
+		//delete it
+		dao.delete(cityFromDB.getId());
+		
+		//make sure it's gone
+		assertNull(dao.findCityById(cityFromDB.getId()));
+	}
+	
+	@Test
+	public void test_update_city() {
+		//add it
+		City c = createCity("Gotham",1000000, "New York"); 
+		c = dao.create(c);
+		//make sure it's there
+		City cityFromDB = dao.findCityById(c.getId());
+		assertTrue(areCitiesEqual(c,cityFromDB));
+		
+		//update it 
+		cityFromDB.setPopulation(24);
+		dao.update(cityFromDB);
+		
+		//make sure it's changed 
+		City updatedCity = dao.findCityById(cityFromDB.getId());
+		assertEquals(24,updatedCity.getPopulation());
 		
 	}
 	
