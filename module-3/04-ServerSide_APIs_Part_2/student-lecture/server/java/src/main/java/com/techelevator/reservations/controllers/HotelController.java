@@ -1,8 +1,6 @@
 package com.techelevator.reservations.controllers;
 
 import com.techelevator.reservations.dao.HotelDAO;
-import com.techelevator.reservations.dao.MemoryHotelDAO;
-import com.techelevator.reservations.dao.MemoryReservationDAO;
 import com.techelevator.reservations.dao.ReservationDAO;
 import com.techelevator.reservations.exception.HotelNotFoundException;
 import com.techelevator.reservations.exception.ReservationNotFoundException;
@@ -21,9 +19,9 @@ public class HotelController {
     private HotelDAO hotelDAO;
     private ReservationDAO reservationDAO;
 
-    public HotelController() {
-        this.hotelDAO = new MemoryHotelDAO();
-        this.reservationDAO = new MemoryReservationDAO(hotelDAO);
+    public HotelController(HotelDAO hotelDAO, ReservationDAO reservationDAO) {
+        this.hotelDAO = hotelDAO;
+        this.reservationDAO = reservationDAO;
     }
 
     /**

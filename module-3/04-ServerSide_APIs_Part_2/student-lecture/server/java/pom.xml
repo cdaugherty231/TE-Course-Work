@@ -8,10 +8,8 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.techelevator</groupId>
-    <artifactId>04-hotel-reservations-lecture</artifactId>
+    <artifactId>m3d04-serverside-apis-part2-lecture-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hotel-reservations</name>
-    <description>Server Side APIs: Part 1 Lecture</description>
 
     <properties>
         <java.version>1.8</java.version>

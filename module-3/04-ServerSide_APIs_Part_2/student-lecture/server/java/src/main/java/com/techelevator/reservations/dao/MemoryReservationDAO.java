@@ -2,28 +2,30 @@ package com.techelevator.reservations.dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import com.techelevator.reservations.exception.HotelNotFoundException;
 import com.techelevator.reservations.exception.ReservationNotFoundException;
 import com.techelevator.reservations.models.Hotel;
 import com.techelevator.reservations.models.Reservation;
 
+@Component
 public class MemoryReservationDAO implements ReservationDAO {
 
-    private static List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
     private HotelDAO hotelDAO;
 
     public MemoryReservationDAO(HotelDAO hotelDAO) {
         this.hotelDAO = hotelDAO;
-        if( reservations.size() == 0 ) {
-            init();
-        }
+        initializeReservationData();
     }
 
     public List<Reservation> findAll() {
-        return reservations;
+        return Collections.unmodifiableList(reservations);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class MemoryReservationDAO implements ReservationDAO {
     @Override
     public Reservation create(Reservation reservation, int hotelID) {
         reservation.setId(getMaxIdPlusOne());
-        this.reservations.add(reservation);
+        reservations.add(reservation);
         return reservation;
     }
 
@@ -72,7 +74,6 @@ public class MemoryReservationDAO implements ReservationDAO {
     public Reservation update(Reservation reservation, int id) throws ReservationNotFoundException {
         Reservation result = reservation;
         boolean finished = false;
-        List<Reservation> reservations = findAll();
 
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).getId() == id) {
@@ -107,7 +108,7 @@ public class MemoryReservationDAO implements ReservationDAO {
         }
     }
 
-    private void init() {
+    private void initializeReservationData() {
         LocalDate now = LocalDate.now();
         List<Hotel> hotels = hotelDAO.list();
 

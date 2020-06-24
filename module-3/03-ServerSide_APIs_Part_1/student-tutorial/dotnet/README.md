@@ -4,15 +4,15 @@ In this tutorial, you'll work on an application that uses Tech Elevator Location
 
 ## Step One: Create a new ASP.NET Core Web project in Visual Studio
 
-When you launch Visual Studio, you can create a new project by going to `File > New > Project` or by clicking the "Create a new project" button on the start page.
+When you launch Visual Studio, you can create a new project by going to **File > New > Project** or by clicking the "Create a new project" button on the start page.
 
 ![Create new project](./img/create_new_project.png)
 
-Next, you need to select `ASP.NET Core Web Application` as your project type. If you trouble finding it, you can use the filters or the search box. Click "Next" to go to the next screen.
+Next, select "ASP.NET Core Web Application" as your project type. If you can't find it, use the filters or the search box. Click "Next" to go to the next screen.
 
 ![Project Type](./img/project_type.png)
 
-Enter `Locations` as the project name. Select a location where you want to save the project.
+Enter "Locations" as the project name. Choose where you want to save the project.
 
 > Note: Your location may not be the same as the screenshot.
 
@@ -20,19 +20,31 @@ The solution name automatically updates to match the project name. Click "Create
 
 ![Save Location](./img/save_location.png)
 
-Lastly, select "API" as the project template, and make sure ".NET Core" and "ASP.NET Core 2.2" are selected in the dropdowns. Leave "Configure for HTTPS" checked. Click "Create" to create the project.
+Lastly, select "API" as the project template, and make sure to select ".NET Core" and "ASP.NET Core 2.2" in the dropdown menus. If you don't select the correct values here, you may have some difficulty following along.
+
+Leave "Configure for HTTPS" checked. Click "Create" to create the project.
 
 ![Web API](./img/web_api.png)
 
 Now that you've set up your project in Visual Studio, run it to make sure everything works. It's best to make sure an application runs before adding anything new to it.
 
-In the menu bar, there's a button that says "IIS Express" and has a green triangle button next to it. Click that to build and run your application.
+Next, go to the "Debug" menu and select "Start Debugging":
+
+![Start Debugging](./img/start_debugging.png)
+
+>Note: Alternatively, you should have a button below the menus with a green triangle button next to it. It might read "IIS Express" or the name of your project. You can also click that to build and run your application.
 
 ![Run Project](./img/run_project.png)
 
+The first time you run a web application configured with HTTPS on your computer, you have to tell the computer that you trust the IIS Express SSL certificate. You'll only have to do this once. You must answer "Yes" to the two windows that appear:
+
+![IIS Express SSL](./img/iis_express_ssl.png)
+
+![SSL Install](./img/ssl_install.png)
+
 A browser window appears similar to the screenshot below.
 
->Note: Your port number may be different as Visual Studio generates a random port number on project creation.
+>Note: Your port number may be different as Visual Studio generates a random port number upon project creation.
 
 ![Default API](./img/values_api.png)
 
@@ -42,17 +54,17 @@ Before proceeding, make sure to stop your application by clicking the stop butto
 
 ![Stop Button](./img/stop_button.png)
 
-## Step Two: Create the `Location` controller
+## Step Two: Create the `Locations` controller
 
 Your application is running, but it doesn't do anything useful except print hard-coded strings.
 
 In your `Controllers` folder, you'll find `ValuesController.cs`. This is the controller that returns the hard-coded strings. You can delete this file as the purpose of this tutorial is to show you how to create new controllers and action methods.
 
-After you've deleted `ValuesController.cs`, right-click on the `Controllers` folder, and select `Add -> Controller`. In the window that appears, select "API Controller - Empty" and then click "Add":
+After you've deleted `ValuesController.cs`, right-click on the `Controllers` folder, and select **Add > Controller**. In the window that appears, select "API Controller - Empty" and then click "Add":
 
 ![Add Controller](./img/add_controller.png)
 
-Give the controller the name "LocationsController" and then click "Add":
+In the next window, make sure "API Controller Class - Empty" is still selected. Give the controller the name "LocationsController" and then click "Add":
 
 ![LocationsController](./img/LocationsController.png)
 
@@ -62,7 +74,7 @@ You'll end up with a file that looks like this:
 
 Notice how the class already has the `[Route]` and `[ApiController]` attributes, and that it inherits from `ControllerBase`.
 
-Change the `[Route]` attribute so the controller responds to `/locations` instead of `/api/locations`:
+Next, change the `[Route]` attribute so the controller responds to `/locations` instead of `/api/locations`:
 
 ```csharp
 [Route("[controller]")]
@@ -85,7 +97,7 @@ In the previous command line application, the `Location` model had the following
 
 Now that you know what properties make up your model, you need to create one.
 
-To get started, create a new folder in the project to store the models: right-click on the `Locations` project, and select `Add -> New Folder`. Name the folder "Models." Like the "Controllers" folder, this naming convention is considered a best practice.
+To get started, create a new folder in the project to store the models: right-click on the `Locations` project, and select **Add > New Folder**. Name the folder "Models." Like the "Controllers" folder, this naming convention is considered a best practice.
 
 In the "Models" folder, create a new class called `Location.cs` and paste in the following code. You can replace the entire contents of the folder with the code below. Make sure the namespace matches the code below:
 
@@ -116,7 +128,7 @@ namespace Locations
 
 With your model in place, you can set up some initial data to expose in your API.
 
-Back in `LocationsController.cs`, you can use the code below to create a `List` of `Location` objects:
+Back in `LocationsController.cs`, use the code below to create a `List` of `Location` objects:
 
 ```csharp
 [Route("[controller]")]
@@ -184,7 +196,7 @@ public List<Location> List()
 }
 ```
 
-Run the application again using the "IIS Express" button. A new browser window opens for `https://localhost:44387/api/values`. Notice that this is the route for the old controller.
+Run the application again using the "IIS Express" button or **Debug > Start Debugging** from the menu. A new browser window opens for `https://localhost:44387/api/values`. Notice that this is the route for the old controller.
 
 You can manually change the URL in the browser to `https://localhost:44387/locations`, but doing that each time you want to test is tedious. Luckily, there's a configuration file that contains the default URL that's launched each time you run the application.
 
@@ -196,23 +208,25 @@ This file contains some configuration settings for your application, such as how
 
 ![launchSettings.json content](./img/launchSettings-content.png)
 
-There are two lines that need to be changed. They both contain this text:
+There are two lines that you need to change. They both contain this text:
 
 ```js
 "launchUrl": "api/values",
 ```
 
-The lines need to be changed to read:
+You need to change the lines to this:
 
 ```js
 "launchUrl": "locations",
 ```
 
-After saving the changes to `launchSettings.json`, you can relaunch your application using the "IIS Express" button. A browser window opens for `https://localhost:44387/locations`.
+After saving the changes to `launchSettings.json`, relaunch your application using the "IIS Express" button  or **Debug > Start Debugging** from the menu. A browser window opens for `https://localhost:44387/locations`.
 
-Since this is a `GET` request, you can also use Postman. Just plug in the same URL: `https://localhost:44387/locations`.
+Since this is a `GET` request, you can also use Postman. Plug in the same URL: `https://localhost:44387/locations`.
 
->Note: If you get the error "Could not get any response", you may need to turn off "SSL certificate verification" in `Settings > General`.
+>Note: If you get the error "Could not get any response", you may need to turn off "SSL certificate verification" in **File > Settings > General** (Windows) or **Postman > Preferences > General** (macOS):
+
+![Postman SSL Verification](./img/postman_ssl.png)
 
 You'll get a list of locations in JSON format:
 
@@ -467,7 +481,8 @@ namespace Locations.Controllers
         [HttpGet("random")]
         public Location Random()
         {
-            return locations[new Random().Next(1, locations.Count)];
+            int randomNumber = new Random().Next(1, locations.Count); //returns a random number between 1 and the number of locations
+            return locations[randomNumber];
         }
     }
 }

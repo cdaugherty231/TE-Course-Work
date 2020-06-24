@@ -9,32 +9,25 @@ namespace HotelReservations.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private static IHotelDao _hotelDao;
-        private static IReservationDao _reservationDao;
+        private static IHotelDao hotelDao;
+        private static IReservationDao reservationDao;
 
-        public HotelsController()
+        public HotelsController(IHotelDao _hotelDao, IReservationDao _reservationDao)
         {
-            if (_hotelDao == null)
-            {
-                _hotelDao = new HotelDao();
-            }
-
-            if (_reservationDao == null)
-            {
-                _reservationDao = new ReservationDao();
-            }
+            hotelDao = _hotelDao;
+            reservationDao = _reservationDao;
         }
 
         [HttpGet("hotels")]
         public List<Hotel> ListHotels()
         {
-            return _hotelDao.List();
+            return hotelDao.List();
         }
 
         [HttpGet("hotels/{id}")]
         public ActionResult<Hotel> GetHotel(int id)
         {
-            Hotel hotel = _hotelDao.Get(id);
+            Hotel hotel = hotelDao.Get(id);
 
             if (hotel != null)
             {
@@ -77,13 +70,13 @@ namespace HotelReservations.Controllers
         [HttpGet("reservations")]
         public List<Reservation> ListReservations()
         {
-            return _reservationDao.List();
+            return reservationDao.List();
         }
 
         [HttpGet("reservations/{id}")]
         public ActionResult<Reservation> GetReservation(int id)
         {
-            Reservation reservation = _reservationDao.Get(id);
+            Reservation reservation = reservationDao.Get(id);
 
             if (reservation != null)
             {
@@ -98,18 +91,18 @@ namespace HotelReservations.Controllers
         [HttpGet("hotels/{hotelId}/reservations")]
         public ActionResult<List<Reservation>> ListReservationsByHotel(int hotelId)
         {
-            Hotel hotel = _hotelDao.Get(hotelId);
+            Hotel hotel = hotelDao.Get(hotelId);
             if (hotel == null)
             {
                 return NotFound("Hotel Id is invalid");
             }
-            return _reservationDao.FindByHotel(hotelId);
+            return reservationDao.FindByHotel(hotelId);
         }
 
         [HttpPost("reservations")]
         public ActionResult<Reservation> AddReservation(Reservation reservation)
         {
-            Reservation added = _reservationDao.Create(reservation);
+            Reservation added = reservationDao.Create(reservation);
             return Created($"/reservations/{added.Id}", added);
         }
 

@@ -3,7 +3,7 @@ using HotelReservations.Models;
 
 namespace HotelReservations.Dao
 {
-    interface IHotelDao
+    public interface IHotelDao
     {
         List<Hotel> List();
 

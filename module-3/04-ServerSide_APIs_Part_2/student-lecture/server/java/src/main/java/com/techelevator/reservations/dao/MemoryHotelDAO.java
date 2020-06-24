@@ -4,22 +4,18 @@ import com.techelevator.reservations.models.Address;
 import com.techelevator.reservations.models.Hotel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemoryHotelDAO implements HotelDAO {
 
-    /**
-     * We are using a static variable here because this DAO is used by the hotel
-     * controller and the MemoryReservationDAO and they need to share the same data.
-     * This is where we would normally reach for dependency injection but because we
-     * haven't learned about it yet we are using this workaround.
-     */
-    public static List<Hotel> hotels = new ArrayList<>();
+    private List<Hotel> hotels = new ArrayList<>();
 
     public MemoryHotelDAO() {
-        if (hotels.size() == 0) {
-            setHotels();
-        }
+    	initializeHotelData();
     }
 
     @Override
@@ -34,7 +30,7 @@ public class MemoryHotelDAO implements HotelDAO {
 
     @Override
     public List<Hotel> list() {
-        return hotels;
+        return Collections.unmodifiableList(hotels);
     }
 
     @Override
@@ -43,7 +39,7 @@ public class MemoryHotelDAO implements HotelDAO {
     }
 
 
-    private void setHotels() {
+    private void initializeHotelData() {
         hotels.add(new Hotel(1,
                 "Aloft Cleveland",
                 new Address("1111 W 10th St","","Cleveland","Ohio","44115"),

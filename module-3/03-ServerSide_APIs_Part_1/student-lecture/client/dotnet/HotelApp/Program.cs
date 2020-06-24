@@ -5,7 +5,7 @@ namespace HTTP_Web_Services_GET_lecture
 {
     class Program
     {
-        private static readonly APIService apiService = new APIService("http://localhost:3000/");
+        private static readonly APIService apiService = new APIService();
         private static readonly ConsoleService console = new ConsoleService();
 
         static void Main(string[] args)

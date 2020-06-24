@@ -6,13 +6,8 @@ namespace HTTP_Web_Services_GET_lecture
 {
     class APIService
     {
-        private readonly string API_URL = "";
+        private readonly string API_URL = "https://localhost:44322/";
         private readonly RestClient client = new RestClient();
-
-        public APIService(string api_url)
-        {
-            API_URL = api_url;
-        }
 
         public List<Hotel> GetHotels()
         {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HTTP_Web_Services_GET_lecture
+namespace HTTP_Web_Services_POST_PUT_DELETE_lecture
 {
     class Program
     {
-        private static readonly APIService apiService = new APIService("https://localhost:44322/");
+        private static readonly APIService apiService = new APIService();
         private static readonly ConsoleService console = new ConsoleService();
 
         static void Main(string[] args)

@@ -5,14 +5,16 @@ namespace HotelReservations.Dao
 {
     public class HotelDao : IHotelDao
     {
-
-        // each request of the controller creates a new instance of the dao
-        // this is to preserve the data on each request until we get to dependency injection
         private static List<Hotel> Hotels { get; set; }
 
         public HotelDao()
         {
-            if (Hotels == null)
+            InitializeHotelData();
+        }
+
+        private void InitializeHotelData()
+        {
+            if (Hotels == null || Hotels.Count == 0)
             {
                 Hotels = new List<Hotel>
                 {
