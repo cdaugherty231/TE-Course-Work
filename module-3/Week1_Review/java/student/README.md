@@ -60,7 +60,7 @@ The Database team provided you with a script to create a local database and the 
 
 There are two web APIs that will provide you with sources of random cat fact and cat picture data.
 
-You can use `http://aws.random.cat/meow` to retrieve the URL of a random cat picture as a JSON object that looks like this:
+You can use `https://random-cat-image.herokuapp.com/` to retrieve the URL of a random cat picture as a JSON object that looks like this:
 
 ```
 {"file":"https:\/\/purr.objects-us-east-1.dream.io\/i\/VEcIJ.jpg"}
