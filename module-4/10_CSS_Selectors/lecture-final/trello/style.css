@@ -1,0 +1,162 @@
+html {
+    height: 100%;
+
+    /* default element font size to be 16 px*/
+    font-size: 16px;
+}
+
+/* make the width of the boxes include padding and border */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* change the default page font*/
+    font-family: 'Raleway', sans-serif;
+    /* gradient image*/
+    background-image: linear-gradient(to bottom, #858c90, #bbb);
+    /*don't repeat, stretch */
+    background-repeat: no-repeat;
+    /*don't scroll the background with the page*/
+    background-attachment: fixed;
+
+    /*force horizontal scroll */
+    white-space: nowrap;
+}
+
+main {
+    margin-top: 50px;
+}
+
+div.trello-list {
+    /* multi-column layout*/
+    display: inline-block;
+    /*fixed column width */
+    width: 300px;
+
+    /* background color*/
+    background-color: #ddd;
+    /*rounded corners*/
+    border-radius: 2px 3px;
+    /*make all of the lists align to the top*/
+    vertical-align: top;
+}
+
+div.trello-list h2 {
+    /*push away from the edge*/
+    margin: 8px;
+    /* keep font size consistent with root*/
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+div.trello-list ol {
+    /*remove any margin and padding pushing the cards in */
+    margin:0;
+    padding:0;
+}
+
+div.trello-list li {
+    /*remove the list item formatting*/
+    list-style: none;
+    /*set the color of the cards*/
+    background-color: white;
+    /*make the font size slightly smaller than the title*/
+    font-size: 0.9rem;
+    /*spacing between the cards*/
+    margin-bottom: 10px;
+
+    /*spacing within the list item*/
+    padding: 8px;
+
+    /* slightly round the card edge*/
+    border-radius: 1px;
+
+    /* default setting to ensrue that the list titles properly wrap*/
+    white-space: normal;
+}
+
+/* set the last list item to not have a bottom margin*/
+div.trello-list li:last-child {
+    margin-bottom: 0;
+}
+
+/*make the list item darker on hover*/
+div.trello-list li:hover {
+    background-color: #f5f6f7;
+    color: #092d42;
+}
+
+div.trello-list a {
+    /*layout*/
+    display: block;
+    /*look*/
+    text-decoration: none;
+    color: #888;
+    /*set the spacing*/
+    padding: 8px 0px 8px 5px; /*top right bottom left*/
+    font-size: .85rem;
+}
+
+/* style the header*/
+header > h1,
+header > p {
+    /* the elements should be side by side*/
+    display: inline-block;
+
+    /*set the heigth*/
+    height: 20px;
+
+    /*vertical line between the items*/
+    border-right: 1px solid rgba(255,255,255,0.5);
+    /*push the border away on the right*/
+    padding-right: 20px;
+
+    /*align in the middle of the block*/
+    vertical-align: middle;
+    /*slightly off-white */
+    color: rgba(255,255,255,0.8);
+
+}
+header {
+
+    /*postition is fixed to the window*/
+    position: fixed;
+    /*up against the top of the container*/
+    top:0;
+    /*takes up 50px height */
+    height: 50px;
+}
+
+header > h1 {
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+header > p {
+  
+    font-size: 0.9rem;
+    /*push away from the left*/
+    padding-left: 5px;
+}
+
+.labels span {
+    display: inline-block;
+    width:35px;
+    height: 8px;
+    border-radius: 3px;
+    vertical-align: top;
+}
+
+.label.pathway {
+    background-color: red;
+}
+.label.individual {
+    background-color: green;
+}
+.label.pair {
+    background-color: blue;
+}
+.label.general {
+    background-color: orange;
+}
