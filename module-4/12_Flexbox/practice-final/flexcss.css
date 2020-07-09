@@ -1,0 +1,12 @@
+#container {
+    display: flex;   
+    background-color: blue;  
+    justify-content: space-evenly;
+    flex-wrap: wrap-reverse;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+.makemebig {
+    flex-grow: 4;
+}
