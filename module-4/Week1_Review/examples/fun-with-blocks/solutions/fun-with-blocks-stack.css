@@ -1,0 +1,18 @@
+html {
+	font: 96px Courier;
+	color: white;
+}
+
+.box {
+	width: 120px;
+	height: 120px;
+	text-align: center;
+}
+
+.odd {
+	background-color: #ee3e64;
+}
+
+.even {
+	background-color: #44accf;
+}
