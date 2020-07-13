@@ -62,14 +62,14 @@ function falsy(x) {
 */
 function objects() {
   const person = {
-    firstName: "Bill",
-    lastName: "Lumbergh",
+    firstName: 'Bill',
+    lastName: 'Lumbergh',
     age: 42,
     employees: [
-      "Peter Gibbons",
-      "Milton Waddams",
-      "Samir Nagheenanajar",
-      "Michael Bolton"
+      'Peter Gibbons',
+      'Milton Waddams',
+      'Samir Nagheenanajar',
+      'Michael Bolton'
     ]
   };
 
@@ -107,12 +107,12 @@ A built-in `Math` object has properties and methods for mathematical constants a
 */
 
 function mathFunctions() {
-  console.log("Math.PI : " + Math.PI);
-  console.log("Math.LOG10E : " + Math.LOG10E);
-  console.log("Math.abs(-10) : " + Math.abs(-10));
-  console.log("Math.floor(1.99) : " + Math.floor(1.99));
-  console.log("Math.ceil(1.01) : " + Math.ceil(1.01));
-  console.log("Math.random() : " + Math.random());
+  console.log('Math.PI : ' + Math.PI);
+  console.log('Math.LOG10E : ' + Math.LOG10E);
+  console.log('Math.abs(-10) : ' + Math.abs(-10));
+  console.log('Math.floor(1.99) : ' + Math.floor(1.99));
+  console.log('Math.ceil(1.01) : ' + Math.ceil(1.01));
+  console.log('Math.random() : ' + Math.random());
 }
 
 /*
@@ -125,9 +125,9 @@ The string data type has a lot of properties and methods similar to strings in J
 
 function stringFunctions(value) {
   console.log(`.length -  ${value.length}`);
-  console.log(`.endsWith('World') - ${value.endsWith("World")}`);
-  console.log(`.startsWith('Hello') - ${value.startsWith("Hello")}`);
-  console.log(`.indexOf('Hello') - ${value.indexOf("Hello")}`);
+  console.log(`.endsWith('World') - ${value.endsWith('World')}`);
+  console.log(`.startsWith('Hello') - ${value.startsWith('Hello')}`);
+  console.log(`.indexOf('Hello') - ${value.indexOf('Hello')}`);
 
   /*
     Other Methods
@@ -138,4 +138,33 @@ function stringFunctions(value) {
         - trim()
         - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     */
+}
+
+/*
+########################
+Array Methods
+########################
+*/
+
+function arrays() {
+  const names = ['Larry', 'Moe', 'Curly'];
+  console.log(`names: ${names.toString()}`);
+  console.log(`names[1]: ${names[1]}`);
+
+  //.join()
+
+  //.push() & .pop()
+
+  //.shift() & .unshift()
+
+  //.concat()
+
+  //.slice()
+
+  //.reverse() and .sort()
+
+  //.indexOf() and .lastIndexOf()
+
+  //spread operator (...)
+
 }
