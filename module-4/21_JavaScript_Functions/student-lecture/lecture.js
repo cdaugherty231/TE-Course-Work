@@ -87,16 +87,6 @@ function createSentenceFromUser(name, age, listOfQuirks = [], separator = ', ') 
   return description + listOfQuirks.join(separator);
 }
 
-/**
- * Takes an array and, using the power of anonymous functions, generates
- * their sum.
- *
- * @param {number[]} numbersToSum numbers to add up
- * @returns {number} sum of all the numbers
- */
-function sumAllNumbers(numbersToSum) {
-  return numbersToSum.reduce();
-}
 
 /**
  * Takes an array and returns a new array of only numbers that are
@@ -106,4 +96,18 @@ function sumAllNumbers(numbersToSum) {
  * @returns {number[]} a new array with only those numbers that are
  *   multiples of 3
  */
-function allDivisibleByThree(numbersToFilter) {}
+function allDivisibleByThree(numbersToFilter) {
+
+}
+
+
+/**
+ * Takes an array and, using the power of anonymous functions, generates
+ * their sum.
+ *
+ * @param {number[]} numbersToSum numbers to add up
+ * @returns {number} sum of all the numbers
+ */
+function sumAllNumbers(numbersToSum) {
+  
+}
