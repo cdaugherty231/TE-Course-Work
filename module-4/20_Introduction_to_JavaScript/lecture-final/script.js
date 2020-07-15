@@ -1,3 +1,5 @@
+console.log('Message from script.js');
+
 /*
     Example of a multi-line comment just like in C#/Java
 */
@@ -10,8 +12,17 @@
  */
 function variables() {
   // Declares a variable where the value cannot be changed
+  const daysPerWeek = 7;
+  console.log('There are ' + daysPerWeek + ' days in the week.');
   // Declares a variable those value can be changed
+  let daysPerMonth = 31;
+  console.log(`There are ${daysPerMonth} days in this month.`);
   // Declares a variable that will always be an array
+  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  weekdays[0] = 'Moonday';
+  console.log(weekdays);
+  console.table(weekdays);
+  return;
 }
 
 /**
@@ -20,9 +31,9 @@ function variables() {
  * @param {Number} param1 The first number to display
  * @param {Number} param2 The second number to display
  */
-function printParameters(param1, param2) {
-  console.log(`The value of param1 is ${param1}`);
-  console.log(`The value of param2 is ${param2}`);
+function printParameters(a, b) {
+  console.log(`The value of param1 is ${a}`);
+  console.log(`The value of param2 is ${b}`);
 }
 
 /**
@@ -74,10 +85,17 @@ function objects() {
   };
 
   // Log the object
-
+  console.log(person);
   // Log the first and last name
-
+  console.log(person.firstName + ' ' + person.lastName);
   // Log each employee
+  for (let i = 0; i < person.employees.length; i++) {
+    console.log(person.employees[i]);
+  }
+
+  for (let employee of person.employees) {
+    console.log(employee);
+  }
 }
 
 /*
@@ -129,6 +147,9 @@ function stringFunctions(value) {
   console.log(`.startsWith('Hello') - ${value.startsWith('Hello')}`);
   console.log(`.indexOf('Hello') - ${value.indexOf('Hello')}`);
 
+  const stringParts = value.split(' ');
+  console.log(stringParts);
+
   /*
     Other Methods
         - split(string)
@@ -152,19 +173,50 @@ function arrays() {
   console.log(`names[1]: ${names[1]}`);
 
   //.join()
+  console.log(names.join(', '));
 
   //.push() & .pop()
+  names.push('Schemp');
+  console.log(names);
+
+  let n = names.pop();
+  console.log(names);
+  console.log(n);
 
   //.shift() & .unshift()
+  names.unshift('Schemp');
+  console.log(names);
+
+  n = names.shift();
+  console.log(names);
+  console.log(n);
 
   //.concat()
+  const lesserKnownStooges = ['Schemp', 'Joe'];
+  const moreNames = names.concat(lesserKnownStooges);
+  console.log(moreNames);
 
   //.slice()
+  console.log(names.slice(1,3));
 
   //.reverse() and .sort()
+  names.reverse();
+  console.log(names);
+
+  names.sort();
+  console.log(names);
 
   //.indexOf() and .lastIndexOf()
+  console.log(names.indexOf('Larry'));
+
+  console.log([1, 2, 3, 1, 2, 1, 3, 2].lastIndexOf(1));
 
   //spread operator (...)
+  const allStooges = [...names, 'David', ...lesserKnownStooges];
+  console.log(allStooges);
+
+  const sortedStooges = [...allStooges].sort();
+  console.log(sortedStooges);
+  console.log(allStooges);
 
 }

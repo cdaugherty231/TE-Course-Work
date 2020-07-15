@@ -26,6 +26,10 @@ function printToConsole(value) {
  * @param {number} secondParameter the second parameter to multiply
  */
 
+function multiplyTogether(firstParameter, secondParameter) {
+  return firstParameter * secondParameter;
+}
+
 /**
  * This version makes sure that no parameters are ever missing. If
  * someone calls this function without parameters, we default the
@@ -36,6 +40,10 @@ function printToConsole(value) {
  * @param {number} [firstParameter=0] the first parameter to multiply
  * @param {number} [secondParameter=0] the second parameter to multiply
  */
+
+function multiplyNoUndefined(firstParameter = 0, secondParameter = 0) {
+  return firstParameter * secondParameter;
+}
 
 
  
@@ -82,10 +90,55 @@ function scopeTest() {
   }
 }
 
+/**
+ * JSDoc Example
+ * 
+ * This method takes information about a person and creates a sentence.
+ * By default, it joins the list of quirks with a comma.
+ * 
+ * @param {string} name 
+ * @param {number} age 
+ * @param {string[]} listOfQuirks 
+ * @param {string} separator 
+ * @returns {string} the full sentence about the person
+ */
 function createSentenceFromUser(name, age, listOfQuirks = [], separator = ', ') {
   let description = `${name} is currently ${age} years old. Their quirks are: `;
   return description + listOfQuirks.join(separator);
 }
+
+function combineStrings(firstParameter, ...allStrings) {
+  let result = '';
+  for (let s of allStrings) {
+    result += firstParameter + s;
+  }
+  return result;
+}
+
+
+function returnParam(param) {
+  return param;
+}
+
+function imperativeForEach() {
+  let myArray = [1,2,3,4,5];
+
+  for (let n of myArray) {
+    logMultiplyByTwo(n);
+  }
+}
+
+function logMultiplyByTwo(x) {
+  console.log(x * 2);
+}
+
+function declarativeForEach() {
+  let myArray = [1,2,3,4,5];
+
+  myArray.forEach(x => console.log(x * 2));
+}
+
+
 
 
 /**
@@ -97,6 +150,26 @@ function createSentenceFromUser(name, age, listOfQuirks = [], separator = ', ') 
  *   multiples of 3
  */
 function allDivisibleByThree(numbersToFilter) {
+  return numbersToFilter.filter(num => num % 3 === 0);
+}
+
+function mapDemo() {
+  let myArray = ['red', 'blue', 'green'];
+
+  return myArray.map(str => str.substring(1));
+}
+
+function mapWithObjects() {
+  let objArray = [
+    {name: 'Steve', bankBalance: 100},
+    {name: 'Martha', bankBalance: 500},
+    {name: 'TE Student', bankBalance: 10}
+  ];
+
+  objArray.map(person => person.bankBalance += 100);
+
+  return objArray.map(person => person.name + " has a balance of " + person.bankBalance);
+
 
 }
 
@@ -109,5 +182,28 @@ function allDivisibleByThree(numbersToFilter) {
  * @returns {number} sum of all the numbers
  */
 function sumAllNumbers(numbersToSum) {
-  
+  return numbersToSum.reduce((sum, num) => sum + num);
+}
+
+
+function smallestNumber(numbers) {
+  return numbers.reduce((smallestSoFar, num) => (num < smallestSoFar)? num : smallestSoFar);
+}
+
+function shortestString(strings) {
+  return strings.reduce((shortestSoFar, str) => (str.length < shortestSoFar.length)? str : shortestSoFar);
+}
+
+function reduceWithObjects() {
+  let objArray = [
+    {name: 'Steve', bankBalance: 100},
+    {name: 'Martha', bankBalance: 500},
+    {name: 'TE Student', bankBalance: 10}
+  ];
+
+  let totalBalance = objArray.reduce((sum, person) => sum + person.bankBalance, 0);
+
+  let allNames = objArray.reduce((allNames, person) => allNames + ' ' + person.name, 'All customers:');
+
+  return allNames;
 }
