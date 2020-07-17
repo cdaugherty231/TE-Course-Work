@@ -1,6 +1,6 @@
-# Tutorial for Component Communication
+# Component Communication Tutorial
 
-In this tutorial, you'll make a todo list, but using separate components instead of one component that handles everything. To make the todo list, you'll: 
+In this tutorial, you'll make a todo list, but using separate components instead of one component that handles everything. To make the todo list, you'll:
 
 - Move the data for the todo list into a Vuex datastore.
 - Create a new component that creates a new todo item and adds it to the list.
@@ -10,13 +10,15 @@ Your starting code is a simple todo list in the `TodoList.vue` component. This c
 
 All of these components need access to the todo list data, but that is why you'll move the data into a Vuex datastore.
 
-## Step one: Move the data to a Vuex datastore
+> Before you start, make sure to run `npm install` to install any dependencies.
+
+## Step One: Move the data to a Vuex datastore
 
 First, you'll move the todo list data to the Vuex datastore. The Vuex datastore acts as a central location to keep all of the application's data and provide access to that data to all components in the application.
 
 Looking at the `TodoList` component now, the data for the list is in the component's data function:
 
-``` JavaScript 
+``` JavaScript
 export default {
   data() {
     return {
@@ -35,7 +37,7 @@ export default {
 }
 ```
 
-To move this from this component to the Vuex datastore, open up the file that defines the Vuex datastore. That file is at `src/store/index.js`:
+To move this from this component to the Vuex datastore, open the file that defines the Vuex datastore. That file is at `src/store/index.js`:
 
 ``` JavaScript
 import Vue from 'vue'
@@ -55,7 +57,9 @@ export default new Vuex.Store({
 })
 ```
 
-When putting data in a Vuex datastore, the data goes into the `state` section of the datastore. Remove the `todos` from the `data` property found in the component, and add them to the `state` property in the datastore. After you complete this step, the script block for the component should be empty, as shown below:
+When putting data in a Vuex datastore, the data goes into the `state` section of the datastore.
+
+Remove the `todos` from the `data` property found in the component, and add them to the `state` property in the datastore. After you complete this step, the script block for the component will be empty, as shown below:
 
 ``` JavaScript
 export default {
@@ -63,7 +67,7 @@ export default {
 }
 ```
 
-Once that step is completed, the state property in the Vuex store should look like this:
+Once you complete this step, the state property in the Vuex store looks like this:
 
 ``` JavaScript
 state: {
@@ -80,11 +84,11 @@ state: {
 },
 ```
 
-Notice that `state` is not a function, so you don't need to include a `return` statement. `state` is an object, and the values go directly in the curly brackets.
+Notice that `state` isn't a function, so you don't need to include a `return` statement. `state` is an object, and the values go directly in the curly brackets.
 
 Now that the data is in the store, how do you get it back into your component?
 
-Because the Vuex datastore is connected to the application in the `main.js` file, all the components have access to the datastore from the `this.$store` variable. This can be used in the `v-for` call to get the todo data kept in the datastore.
+Because the Vuex datastore is connected to the application in the `main.js` file, all the components have access to the datastore from the `this.$store` variable. This can be used in the `v-for` call to get the todo data kept in the datastore:
 
 ``` HTML
 <li v-for="todo in $store.state.todos" v-bind:key="todo.name"  v-bind:class="{ 'todo-completed': todo.done }">
@@ -95,9 +99,11 @@ Because the Vuex datastore is connected to the application in the `main.js` file
 
 > Remember that in the HTML portion of the component, you don't have to use `this` to access component information. The same is true for referencing `this.$store` in your HTML.
 
-## Step two: Add a component to the todos
+## Step Two: Add a component to the todos
 
-Now you'll add a new component to the project. To do that, create a new file under `src/components` called `NewTodo.vue`. If you type `vue` in that file, a list of snippets should appear. Select the first snippet from the list of snippets displayed. This adds the following to the file:
+Now you'll add a new component to the project.
+
+To do that, create a new file under `src/components` called `NewTodo.vue`. If you type `vue` in that file, a list of snippets appears. Select the first snippet from the list of snippets displayed. This adds the following to the file:
 
 ``` HTML
 <template>
@@ -176,7 +182,7 @@ Now that the data is being captured, you need a way to save a new todo to the `t
 
 But adding data to a Vuex datastore isn't as straightforward as adding a line to the array. Changes to data should go through a Mutation.
 
-### Step three: Add a mutation to the datastore
+### Step Three: Add a mutation to the datastore
 
 Open the `src/store/index.js` file. The store has the `todos` list. Now add a new mutation called `ADD_NEW_TODO()` that takes a todo object and adds it to the array:
 
@@ -188,7 +194,7 @@ mutations: {
 },
 ```
 
-Now you can call this mutation from the `NewTodo` component. Remember that mutations are not called like methods. They are committed to the store, much like a change in `git` is committed to the repository. 
+Now you can call this mutation from the `NewTodo` component. Remember that mutations aren't called like methods. They're committed to the store, much like a change in `git` is committed to the repository.
 
 Next, add a new method called `saveTodo` to the `NewTodo` component that takes the entered todo, gives it a `done` status of `false` and then commits it to the datastore. It can then clear the data for the next todo to be added:
 
@@ -238,16 +244,18 @@ Afterwards, add the component's HTML tag to the `App` component's HTML:
 
 Viewing the application now, you see the form underneath the todo list. When you fill out and submit the form, a new task is added to the list in the datastore, and the new task is displayed on the page with the other todos.
 
-## Step four: Recreate checkbox handling in TodoList
+## Step Four: Recreate checkbox handling in TodoList
 
-There is a problem with the application. Since data shouldn't be changed in the Vuex store outside of a mutation, `v-model` can no longer be used on data coming from a Vuex store. You'll notice that if you run this code in the browser and use any of the checkboxes, errors appear in the console even though the checkboxes still work.
+There's a problem with the application.
+
+Since data shouldn't be changed in the Vuex store outside of a mutation, `v-model` can no longer be used on data coming from a Vuex store.You'll notice that if you run this code in the browser and use any of the checkboxes, errors appear in the console even though the checkboxes still work.
 
 Every change to Vuex data should go through a mutation, so the `TodoList` needs to change. To correct this, `v-model` is removed from the checkbox and replaced with `v-on:click`. When the checkbox is clicked, a method is called that commits a new mutation called `FLIP_DONE` that changes the value of the todo.
 
 First, change the `TodoList` to change how the checkbox is handled:
 
 ``` HTML
-<input type="checkbox" v-bind:checked="todo.done" v-on:change="checkTodoBox(todo)"/>
+<input type="checkbox" v-bind:checked="todo.done" v-on:click="checkTodoBox(todo)"/>
 ```
 
 This binds the status of the checkbox to the `todo.done` value from Vuex, but binds the action of the change to a method called `checkTodoBox()`. Now, write that method to send status changes to Vuex:
@@ -277,7 +285,7 @@ Since the `todo` is already in the `state`, it can be referenced directly. And s
 
 You see in the interface that everything works as it did before, but now an error won't show in the console because you're following the rule that states that all data changes should happen in a mutation.
 
-## Step five: Add a component to show summary information
+## Step Five: Add a component to show summary information
 
 Now create a new component called `TodoSummary.vue` in the `src/components` folder. This component shows summary information about your list.
 
@@ -328,7 +336,9 @@ The following CSS can be used to make these boxes better fit with the layout:
 </style>
 ```
 
-Then add new computed properties, using the state from the datastore, to calculate how many of each todo category are left to be completed. Try to complete this without looking at the solutions below and then check your solution against the included one:
+Then add new computed properties, using the state from the datastore, to calculate how many of each todo category are left to be completed.
+
+Try to complete this without looking at the solutions below and then check your solution against the included one:
 
 ``` JavaScript
 computed: {
@@ -382,11 +392,11 @@ export default {
 </script>
 ```
 
-You should now see auto-updating summary information above the todo list.
+You'll now see auto-updating summary information above the todo list.
 
 ## Summary
 
-In this tutorial, you were able to:
+In this tutorial, you learned how to:
 
 - Implement an application that utilizes components that work together
 - Access data stored in Vuex from multiple components

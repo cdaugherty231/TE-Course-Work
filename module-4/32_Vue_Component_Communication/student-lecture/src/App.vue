@@ -1,10 +1,34 @@
 <template>
-  <div id="app" class="main"></div>
+  <div id="app" class="main">
+    <h1>Product Reviews for </h1>
+    <p class="description"></p>
+    <div class="well-display">
+      <average-summary />
+      <star-summary />
+      <star-summary />
+      <star-summary />
+      <star-summary />
+      <star-summary />
+    </div>
+    <add-review />
+    <review-list />
+  </div>
 </template>
 
 <script>
+import AverageSummary from "./components/AverageSummary.vue";
+import StarSummary from "./components/StarSummary.vue";
+import AddReview from "./components/AddReview.vue";
+import ReviewList from "./components/ReviewList.vue";
+
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    AverageSummary,
+    StarSummary,
+    AddReview,
+    ReviewList
+  }
 };
 </script>
 

@@ -95,8 +95,7 @@ input[type="text"] {
   padding: 8px;
 }
 .filter {
-  margin-bottom: 20px !important;
-  margin: auto;
+  margin: 10px auto;
   width: 90%;
 }
 form {

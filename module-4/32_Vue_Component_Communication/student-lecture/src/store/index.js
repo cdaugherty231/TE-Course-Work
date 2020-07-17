@@ -44,7 +44,7 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    ADD_REVIEW(state,review) {
+    ADD_REVIEW(state, review) {
       state.reviews.unshift(review);
     },
     UPDATE_FILTER(state, filter) {

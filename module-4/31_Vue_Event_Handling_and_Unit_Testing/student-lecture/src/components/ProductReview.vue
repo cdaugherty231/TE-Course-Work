@@ -36,40 +36,6 @@
       </div>
     </div>
 
-    <a
-      id="show-form-button"
-      href="#"
-      v-on:click.prevent="showForm = true"
-      v-if="!showForm"
-    >Show Form</a>
-
-    <form v-if="showForm === true" v-on:submit.prevent="addNewReview">
-      <div class="form-element">
-        <label for="reviewer">Name:</label>
-        <input id="reviewer" type="text" v-model="newReview.reviewer" />
-      </div>
-      <div class="form-element">
-        <label for="title">Title:</label>
-        <input id="title" type="text" v-model="newReview.title" />
-      </div>
-      <div class="form-element">
-        <label for="rating">Rating:</label>
-        <select id="rating" v-model.number="newReview.rating">
-          <option value="1">1 Star</option>
-          <option value="2">2 Stars</option>
-          <option value="3">3 Stars</option>
-          <option value="4">4 Stars</option>
-          <option value="5">5 Stars</option>
-        </select>
-      </div>
-      <div class="form-element">
-        <label for="review">Review</label>
-        <textarea id="review" v-model="newReview.review"></textarea>
-      </div>
-      <button>Submit</button>
-      <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
-    </form>
-
     <div
       class="review"
       v-bind:class="{ favorited: review.favorited }"
@@ -106,7 +72,6 @@ export default {
       name: "Cigar Parties for Dummies",
       description:
         "Host and plan the perfect cigar party for all of your squirrelly friends.",
-      showForm: false,
       newReview: {},
       reviews: [
         {
@@ -149,37 +114,32 @@ export default {
       let sum = this.reviews.reduce((currentSum, review) => {
         return currentSum + review.rating;
       }, 0);
-      return sum / this.reviews.length;
+      return (sum / this.reviews.length).toFixed(2);
     },
     numberOfOneStarReviews() {
-      return this.numberOfReviews(this.reviews, 1);
-    },
-    numberOfTwoStarReviews() {
-      return this.numberOfReviews(this.reviews, 2);
-    },
-    numberOfThreeStarReviews() {
-      return this.numberOfReviews(this.reviews, 3);
-    },
-    numberOfFourStarReviews() {
-      return this.numberOfReviews(this.reviews, 4);
-    },
-    numberOfFiveStarReviews() {
-      return this.numberOfReviews(this.reviews, 5);
-    }
-  },
-  methods: {
-    numberOfReviews(reviews, starType) {
-      return reviews.reduce((currentCount, review) => {
-        return currentCount + (review.rating === starType ? 1 : 0);
+      return this.reviews.reduce((currentCount, review) => {
+        return currentCount + (review.rating === 1);
       }, 0);
     },
-    addNewReview() {
-      this.reviews.unshift(this.newReview);
-      this.resetForm();
+    numberOfTwoStarReviews() {
+      return this.reviews.reduce((currentCount, review) => {
+        return currentCount + (review.rating === 2);
+      }, 0);
     },
-    resetForm() {
-      this.showForm = false;
-      this.newReview = {};
+    numberOfThreeStarReviews() {
+      return this.reviews.reduce((currentCount, review) => {
+        return currentCount + (review.rating === 3);
+      }, 0);
+    },
+    numberOfFourStarReviews() {
+      return this.reviews.reduce((currentCount, review) => {
+        return currentCount + (review.rating === 4);
+      }, 0);
+    },
+    numberOfFiveStarReviews() {
+      return this.reviews.reduce((currentCount, review) => {
+        return currentCount + (review.rating === 5);
+      }, 0);
     }
   }
 };
@@ -242,6 +202,28 @@ div.main div.review h3 {
 
 div.main div.review h4 {
   font-size: 1rem;
+}
+
+div.form-element {
+  margin-top: 10px;
+}
+div.form-element > label {
+  display: block;
+}
+div.form-element > input, div.form-element > select {
+  height: 30px;
+  width: 300px;
+}
+div.form-element > textarea {
+  height: 60px;
+  width: 300px;
+}
+form > input[type=button] {
+  width: 100px;
+}
+form > input[type=submit] {
+  width: 100px;
+  margin-right: 10px;
 }
 </style>
 

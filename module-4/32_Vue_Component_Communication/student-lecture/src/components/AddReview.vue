@@ -3,10 +3,11 @@
     <a
       id="show-form-button"
       href="#"
+      v-if="showForm === false"
       v-on:click.prevent="showForm = true"
-      v-if="!showForm"
     >Show Form</a>
-    <form v-if="showForm === true" v-on:submit.prevent="addNewReview">
+
+    <form v-on:submit.prevent="addNewReview" v-if="showForm === true">
       <div class="form-element">
         <label for="reviewer">Name:</label>
         <input id="reviewer" type="text" v-model="newReview.reviewer" />
@@ -26,11 +27,11 @@
         </select>
       </div>
       <div class="form-element">
-        <label for="review">Review</label>
+        <label for="review">Review:</label>
         <textarea id="review" v-model="newReview.review"></textarea>
       </div>
-      <button>Submit</button>
-      <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
+      <input type="submit" value="Save">
+      <input type="button" value="Cancel" v-on:click.prevent="resetForm">
     </form>
   </div>
 </template>
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     addNewReview() {
-      this.$store.commit("ADD_REVIEW", this.newReview);
+
       this.resetForm();
     },
     resetForm() {
@@ -58,4 +59,25 @@ export default {
 </script>
 
 <style>
+div.form-element {
+  margin-top: 10px;
+}
+div.form-element > label {
+  display: block;
+}
+div.form-element > input, div.form-element > select {
+  height: 30px;
+  width: 300px;
+}
+div.form-element > textarea {
+  height: 60px;
+  width: 300px;
+}
+form > input[type=button] {
+  width: 100px;
+}
+form > input[type=submit] {
+  width: 100px;
+  margin-right: 10px;
+}
 </style>
