@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function showPropMsg(event) {
   let detectedAt = event.target.getAttribute('id')
-  if(detectedAt==null) {
+  if(detectedAt==null ) {
     detectedAt =  event.target.parentElement.getAttribute('id')
   }
   
@@ -38,7 +38,9 @@ function showPropMsg(event) {
     ' CLICK DETECTED HERE: ' +
     detectedAt + '!  '
     
-  setTimeout(() => { console.log("Sleeping!"); }, 2000);
+  if (event.target.classList.contains('noprops')){
+    event.stopPropagation()
+  }
 }
 
 function addNameToList() {
