@@ -39,7 +39,8 @@ export default {
         reviewer: "",
         title: "",
         rating: 0,
-        review: ""
+        review: "",
+        favorited: false
       }
     };
   },
