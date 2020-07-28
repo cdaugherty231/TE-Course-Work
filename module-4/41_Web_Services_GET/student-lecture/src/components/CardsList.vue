@@ -7,18 +7,18 @@
     <div class="boards" v-else>
       <board-column
         title="Planned"
-        :cards="planned"
-        :boardID="this.$route.params.id"
+        v-bind:cards="planned"
+        v-bind:boardID="this.$route.params.id"
       />
       <board-column
         title="In Progress"
-        :cards="inProgress"
-        :boardID="this.$route.params.id"
+        v-bind:cards="inProgress"
+        v-bind:boardID="this.$route.params.id"
       />
       <board-column
         title="Completed"
-        :cards="completed"
-        :boardID="this.$route.params.id"
+        v-bind:cards="completed"
+        v-bind:boardID="this.$route.params.id"
       />
     </div>
     <div class="board-actions" v-if="!isLoading">

@@ -17,14 +17,14 @@
         {{ board.title }}
       </router-link>
       <button class="btn addBoard" v-if="!isLoading && !showAddBoard" v-on:click="showAddBoard = !showAddBoard">Add Board</button>
-      <div v-if="showAddBoard">
+      <form v-if="showAddBoard">
         Board Title:
         <input type="text" class="form-control" v-model="newBoard.title" />
         Background Color:
         <input type="text" class="form-control" v-model="newBoard.backgroundColor" />
         <button class="btn btn-submit" v-on:click="saveNewBoard">Save</button>
         <button class="btn btn-cancel" v-on:click="showAddBoard = !showAddBoard">Cancel</button>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@
 import boardsService from '../services/BoardService';
 
 export default {
-  props: ['refresh'],
   data() {
     return {
       isLoading: true,
@@ -60,7 +59,7 @@ export default {
       });
     },
     saveNewBoard() {
-      
+
     },
     randomBackgroundColor() {
       return "#" + this.generateHexCode();
@@ -69,13 +68,6 @@ export default {
       var bg = Math.floor(Math.random()*16777215).toString(16);
       if (bg.length !== 6) bg = this.generateHexCode();
       return bg;
-    }
-  },
-  watch: {
-    refresh() {
-      this.isLoading = true;
-      this.retrieveBoards();
-      this.$emit("refresh-done");
     }
   }
 };
@@ -132,7 +124,7 @@ h1 {
 .loading {
   flex: 3;
 }
-.board:hover:not(.router-link-active), .addBoard:hover {  
+.board:hover:not(.router-link-active), .addBoard:hover {
   font-weight: bold;
 }
 .router-link-active {

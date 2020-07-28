@@ -23,6 +23,11 @@ export default new Vuex.Store({
     },
     SET_CURRENT_CARD(state, data) {
       state.card = data;
+    },
+    DELETE_BOARD(state, boardIdToDelete) {
+      state.boards = state.boards.filter((board) => {
+        return board.id !== boardIdToDelete;
+      });
     }
   },
   actions: {

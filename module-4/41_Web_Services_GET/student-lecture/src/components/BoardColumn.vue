@@ -10,11 +10,11 @@
       >
         <div class="header">
           <h3>{{ card.title }}</h3>
-          <img :src="card.avatar" class="avatar" />
+          <img v-bind:src="card.avatar" class="avatar" />
         </div>
         <div class="footer">
           <span class="date">{{ card.date }}</span>
-          <span class="pill" :class="getTagClass(card.tag)">{{
+          <span class="pill" v-bind:class="getTagClass(card.tag)">{{
             card.tag
           }}</span>
         </div>

@@ -75,18 +75,7 @@ export default {
             }
           })
           .catch(error => {
-            if (error.response) {
-              this.errorMsg =
-                "Error submitting new card. Response received was '" +
-                error.response.statusText +
-                "'.";
-            } else if (error.request) {
-              this.errorMsg =
-                "Error submitting new card. Server could not be reached.";
-            } else {
-              this.errorMsg =
-                "Error submitting new card. Request could not be created.";
-            }
+            this.handleErrorResponse(error, "adding");
           });
       } else {
         // update
@@ -101,23 +90,26 @@ export default {
             }
           })
           .catch(error => {
-            if (error.response) {
-              this.errorMsg =
-                "Error updating card. Response received was '" +
-                error.response.statusText +
-                "'.";
-            } else if (error.request) {
-              this.errorMsg =
-                "Error updating card. Server could not be reached.";
-            } else {
-              this.errorMsg =
-                "Error updating card. Request could not be created.";
-            }
+            this.handleErrorResponse(error, "updating");
           });
       }
     },
     cancelForm() {
       this.$router.push(`/board/${this.$route.params.boardID}`);
+    },
+    handleErrorResponse(error, verb) {
+      if (error.response) {
+        this.errorMsg =
+          "Error " + verb + " card. Response received was '" +
+          error.response.statusText +
+          "'.";
+      } else if (error.request) {
+        this.errorMsg =
+          "Error " + verb + " card. Server could not be reached.";
+      } else {
+        this.errorMsg =
+          "Error " + verb + " card. Request could not be created.";
+      }
     }
   },
   created() {

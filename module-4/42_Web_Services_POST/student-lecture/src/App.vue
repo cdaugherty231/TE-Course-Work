@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <boards-list v-bind:refresh="refreshBoards" v-on:refresh-done="resetRefresh()" />
+    <boards-list />
     <router-view :key="$route.fullPath" class="routerView" />
   </div>
 </template>
@@ -11,23 +11,6 @@ import BoardsList from '@/components/BoardsList';
 export default {
   components: {
     BoardsList
-  },
-  data() {
-    return {
-      refreshBoards: false
-    };
-  },
-  methods: {
-    resetRefresh() {
-      this.refreshBoards = false;
-    }
-  },
-  watch: {
-    $route(to) {
-      if (to.name === "Home") {
-        this.refreshBoards = true;
-      }
-    }
   }
 };
 </script>

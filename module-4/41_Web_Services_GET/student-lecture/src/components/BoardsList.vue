@@ -12,7 +12,7 @@
         v-bind:style="{ 'background-color': board.backgroundColor }"
         v-else
       >
-        <router-link :to="{ name: 'Board', params: { id: board.id } }">
+        <router-link v-bind:to="{ name: 'Board', params: { id: board.id } }">
           {{ board.title }}
         </router-link>
       </div>
